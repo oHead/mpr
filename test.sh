@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# RUN THIS ON YOUR OWN RISK IF THIS SCRIPT DELETES ALL OF YOUR TAGS I WASH MY HANDS OFF OF IT :P
+
 num=0
 MAX=$(git tag | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort | wc -l)
 echo "There are $MAX tags available"
