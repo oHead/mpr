@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 num=0
 MAX=$(git tag | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort | wc -l)
