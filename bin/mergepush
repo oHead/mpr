@@ -1,0 +1,53 @@
+#!/usr/bin/env python2
+
+import argparse
+import subprocess
+
+def execute(command):
+    return subprocess.check_output(command, shell=True)
+
+def getCurrentBranch():
+    return execute('git rev-parse --abbrev-ref HEAD')
+
+def gitCommand(command, branch, run):
+    if (run):
+        return execute(command + branch)
+    else:
+        print(command + branch)
+
+def pull(branch, run):
+    gitCommand('git pull origin ', branch, run)
+
+def push(branch, run):
+    gitCommand('git push origin ', branch, run)
+
+def checkout(branch, run):
+    gitCommand('git checkout ', branch, run)
+
+def merge(branch, run):
+    gitCommand('git merge ', branch, run)
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('branches', nargs='+', help='The branchs to go through, it will be done in order')
+    parser.add_argument('-p','--printCommands', action="store_true", help="Only print the commands", default=False)
+    parser.add_argument('-s','--stay', action="store_true", help="Stay on the last branch (otherwise it returns to the first one)", default=False)
+    args = parser.parse_args()
+
+    current = getCurrentBranch().strip()
+    first = current
+    run = not args.printCommands
+    pull(current, run)
+    push(current, run)
+    for branch in args.branches:
+        old=current
+        current=branch
+        checkout(current, run)
+        merge(old, run)
+        pull(current, run)
+        push(current, run)
+    if not args.stay:
+        checkout(first, run)
+
+if __name__ == "__main__":
+    main()
