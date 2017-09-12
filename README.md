@@ -1,5 +1,5 @@
 # gitHelper
-From the good people of [NSoft](https://www.nsoft.ba/hr/pocetna/)
+From the good people of [NSoft](https://www.nsoft.com)
 
 It will help you remove all those tags that you hoarded in your repo. 
 
