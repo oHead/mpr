@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# RUN THIS ON YOUR OWN RISK IF THIS SCRIPT DELETES ALL OF YOUR TAGS I WASH MY HANDS OFF OF IT :P
+# RUN THIS AT YOUR OWN RISK, IF SCRIPT DELETES ALL OF YOUR TAGS I WASH MY HANDS OFF OF IT :P
 
 REPO_BASE=`/usr/bin/pwd`
 
@@ -11,7 +11,8 @@ else
 	cd $1
 fi
 
-/usr/bin/git status 2&>1 > /dev/null
+/usr/bin/git status > /dev/null
+
 RESULT=$?
 
 if [ $RESULT -ne 0 ]; then
@@ -23,7 +24,7 @@ num=0
 MAX=$(git tag | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort | wc -l)
 
 if [ $MAX -eq 0 ]; then
-	echo -e "\n\tThere are no tags available, quitting!\n"
+	echo "\n\tThere are no tags available, quitting!\n"
 	exit 0
 else
 	echo "There are $MAX tags available"
@@ -59,4 +60,3 @@ then
    echo "Removed $t"
   done
 fi
-
